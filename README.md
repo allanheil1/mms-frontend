@@ -58,13 +58,13 @@ if you don't want to use you can remove these lines from
 
 | Script        | Description                        |
 | ------------- | ---------------------------------- |
-| pnpm dev      | Runs the application.              |
-| pnpm build    | Create builds for the application. |
-| pnpm preview  | Runs the Vite preview              |
-| pnpm lint     | Display eslint errors              |
-| pnpm lint:fix | Fix the eslint errors              |
-| pnpm format   | Runs prettier for all files        |
-| pnpm test     | Run tests                          |
+| npm dev      | Runs the application.              |
+| npm build    | Create builds for the application. |
+| npm preview  | Runs the Vite preview              |
+| npm lint     | Display eslint errors              |
+| npm lint:fix | Fix the eslint errors              |
+| npm format   | Runs prettier for all files        |
+| npm test     | Run tests                          |
 
 ### Check List
 ````
