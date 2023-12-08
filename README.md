@@ -19,13 +19,13 @@ cd my-app
 #### Install Dependencies
 
 ```
-pnpm install
+npm install
 ```
 
 #### Run
 
 ```
-pnpm dev
+npm dev
 ```
 
 #### Paths
