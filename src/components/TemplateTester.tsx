@@ -1,7 +1,8 @@
 import { useContext } from 'react';
-import { ThemeContext } from '@/contexts/ThemeContext';
+import { ThemeContext } from '@/contexts/Theme&SnackBar/ThemeContext';
 import { Stack, Box, Typography, IconButton, TypographyVariant, SxProps, Theme } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
+
 const TemplateTester = () => {
   const themeContext = useContext(ThemeContext);
   const { toggleMode, isDarkMode } = themeContext;
