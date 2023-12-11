@@ -16,5 +16,17 @@ interface ThemeContextProps {
   toggleMode: () => void;
 }
 
-export const ThemeContext = createContext<ThemeContextProps | null>(null);
+export const ThemeContext = createContext<ThemeContextProps>({
+  isDarkMode: false,
+  setIsDarkMode: () => {},
+  snackbarOpen: false,
+  setSnackbarOpen: () => {},
+  snackbarSeverity: 'info',
+  setSnackbarSeverity: () => {},
+  snackbarMessage: '',
+  setSnackbarMessage: () => {},
+  openSnackbar: () => {},
+  closeSnackbar: () => {},
+  toggleMode: () => {},
+});
 
