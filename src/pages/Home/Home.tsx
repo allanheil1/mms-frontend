@@ -1,11 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
 import { Typography, Stack, Container } from '@mui/material';
-import { ThemeContext } from '@/contexts/ThemeContext';
 import useBoolean from '@/hooks/useBoolean';
 import useDebounce from '@/hooks/useDebounce';
 import TemplateTester from '@/components/TemplateTester';
 
-function SeuComponente() {
+function Teste() {
   const { value: isVisibleButton, setTrue: showButton, setFalse: hideButton, toggle: toggleButton } = useBoolean(false);
   const { value: isVisibleImage, setTrue: showImage, setFalse: hideImage, toggle: toggleImage } = useBoolean(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,20 +39,13 @@ function SeuComponente() {
 }
 
 const Home = () => {
-  const themeContext = useContext(ThemeContext);
-  if (!themeContext) {
-    console.error("Theme context is undefined");
-    return null;
-  }
-  const { toggleMode } = themeContext;
   return (
     <Container sx={{ py: 2, position: 'relative' }}>
       <Stack gap={1} my={2}>
         <Typography textAlign="center" variant="h2">
           Vite-MUI-TS MMS - by OKEA
         </Typography>
-        <button onClick={toggleMode}>Toggle Theme</button>
-        <SeuComponente/>
+        <Teste/>
         <TemplateTester/>
       </Stack>
     </Container>
