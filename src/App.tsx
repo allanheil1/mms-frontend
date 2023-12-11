@@ -3,7 +3,7 @@ import { ThemeProvider, CssBaseline } from '@mui/material';
 import Routing from './routes/Routing';
 import { useContext } from 'react';
 import { ThemeContext } from './contexts/ThemeContextProvider';
-import { CustomTheme } from '@/themes/theme';
+import { CustomTheme } from '@/themes/Theme';
 
 const App = () => {
   useContext(ThemeContext);
