@@ -1,21 +1,17 @@
 import { useState, useEffect, useContext } from 'react';
-import { Typography, Stack, Container, useTheme } from '@mui/material';
+import { Typography, Stack, Container } from '@mui/material';
 import { ThemeContext } from '@/contexts/ThemeContext';
-import useBoolean from '@/hooks/useBoolean'; // Importe o hook
-import useDebounce from '@/hooks/useDebounce'; // Importe o hook
+import useBoolean from '@/hooks/useBoolean';
+import useDebounce from '@/hooks/useDebounce';
 import TemplateTester from '@/components/TemplateTester';
 
 function SeuComponente() {
   const { value: isVisibleButton, setTrue: showButton, setFalse: hideButton, toggle: toggleButton } = useBoolean(false);
   const { value: isVisibleImage, setTrue: showImage, setFalse: hideImage, toggle: toggleImage } = useBoolean(false);
-
-  // Use o hook useDebounce para atrasar a atualização do termo de pesquisa
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 1500);
 
-  // Exemplo de uso do termo de pesquisa debounced para uma operação (poderia ser uma chamada à API, por exemplo)
   useEffect(() => {
-    // Realize alguma ação usando debouncedSearchTerm
     console.log('Termo de pesquisa debounced:', debouncedSearchTerm);
   }, [debouncedSearchTerm]);
 
@@ -33,7 +29,6 @@ function SeuComponente() {
       <button onClick={hideImage}>Ocultar Imagem</button>
       <button onClick={toggleImage}>Alternar Visibilidade da Imagem</button>
 
-      {/* Input para o termo de pesquisa */}
       <input
         type="text"
         placeholder="Digite o termo de pesquisa"
