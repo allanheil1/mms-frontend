@@ -1,5 +1,5 @@
 import { Snackbar, Alert } from '@mui/material';
-import { Severity } from '@/contexts/ThemeContext';
+import { Severity } from '@/contexts/Theme&SnackBar/ThemeContext';
 interface CustomSnackbarProps {
   open: boolean;
   onClose: () => void;

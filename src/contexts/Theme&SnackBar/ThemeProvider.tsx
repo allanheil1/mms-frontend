@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import CustomSnackBar from '../components/Snackbar';
+import CustomSnackBar from '../../components/Snackbar';
 import { ThemeContext, Severity } from "./ThemeContext";
 import { ThemeProvider as MuiThemeProvider } from '@mui/material';
 import { CustomTheme } from "@/themes/Theme";
@@ -8,7 +8,7 @@ interface ThemeProviderProps {
     children: ReactNode;
 }
 
-export function CustomThemeProvider({ children }: ThemeProviderProps) {
+export default function ThemeProvider({ children }: ThemeProviderProps) {
     const [isDarkMode, setIsDarkMode] = useState(() => {
         const storedMode = localStorage.getItem('mode');
         return storedMode === 'dark';
