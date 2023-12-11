@@ -1,9 +1,9 @@
-import React from 'react';
-import { ThemeContext } from '@/contexts/ThemeContextProvider';
+import { useContext } from 'react';
+import { ThemeContext } from '@/contexts/ThemeContext';
 import { Stack, Box, Typography, IconButton, TypographyVariant, SxProps, Theme } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 const TemplateTester = () => {
-  const themeContext = React.useContext(ThemeContext);
+  const themeContext = useContext(ThemeContext);
   if (!themeContext) {
     console.error("Theme context is undefined");
     return null;
