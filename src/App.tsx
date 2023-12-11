@@ -1,14 +1,22 @@
 import { BrowserRouter } from 'react-router-dom';
-import { CssBaseline } from '@mui/material';
+import { ThemeProvider, CssBaseline } from '@mui/material';
 import Routing from './routes/Routing';
-import React from 'react';
+import { useContext } from 'react';
+import { ThemeContext } from './contexts/ThemeContextProvider';
+import { CustomTheme } from '@/themes/theme';
 
 const App = () => {
+  useContext(ThemeContext);
+  const isDarkMode = localStorage.getItem('mode') !== null ? localStorage.getItem('mode') === 'dark' ? true : false : false;
+  const theme = CustomTheme({isDarkMode});
   return (
-    <BrowserRouter>
-      <CssBaseline />
-      <Routing />
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <CssBaseline />
+        <Routing />
+      </BrowserRouter>
+    </ThemeProvider>
+
   );
 };
 
