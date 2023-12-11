@@ -1,8 +1,6 @@
-import React from 'react';
+import { FC } from 'react';
 import { Snackbar, Alert } from '@mui/material';
-import { ThemeProvider } from '@/contexts/ThemeContextProvider';
-
-type Severity = 'error' | 'warning' | 'info' | 'success';
+import { Severity } from '@/contexts/ThemeContext';
 
 interface CustomSnackbarProps {
   open: boolean;
@@ -12,15 +10,13 @@ interface CustomSnackbarProps {
   autoHideDuration: number;
 }
 
-const CustomSnackbar: React.FC<CustomSnackbarProps> = ({ open, onClose, severity, message, autoHideDuration }) => {
+const CustomSnackbar: FC<CustomSnackbarProps> = ({ open, onClose, severity, message, autoHideDuration }) => {
   return (
-    <ThemeProvider>
-      <Snackbar open={open} autoHideDuration={autoHideDuration} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} onClose={onClose}>
-        <Alert severity={severity} onClose={onClose} variant={'filled'}>
-          {message}
-        </Alert>
-      </Snackbar>
-    </ThemeProvider>
+    <Snackbar open={open} autoHideDuration={autoHideDuration} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} onClose={onClose}>
+      <Alert severity={severity} onClose={onClose} variant={'filled'}>
+        {message}
+      </Alert>
+    </Snackbar>
   );
 };
 

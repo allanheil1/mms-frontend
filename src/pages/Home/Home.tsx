@@ -1,6 +1,6 @@
-import React from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Typography, Stack, Container, useTheme } from '@mui/material';
-import { ThemeContext } from '@/contexts/ThemeContextProvider';
+import { ThemeContext } from '@/contexts/ThemeContext';
 import useBoolean from '@/hooks/useBoolean'; // Importe o hook
 import useDebounce from '@/hooks/useDebounce'; // Importe o hook
 import TemplateTester from '@/components/TemplateTester';
@@ -10,11 +10,11 @@ function SeuComponente() {
   const { value: isVisibleImage, setTrue: showImage, setFalse: hideImage, toggle: toggleImage } = useBoolean(false);
 
   // Use o hook useDebounce para atrasar a atualização do termo de pesquisa
-  const [searchTerm, setSearchTerm] = React.useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 1500);
 
   // Exemplo de uso do termo de pesquisa debounced para uma operação (poderia ser uma chamada à API, por exemplo)
-  React.useEffect(() => {
+  useEffect(() => {
     // Realize alguma ação usando debouncedSearchTerm
     console.log('Termo de pesquisa debounced:', debouncedSearchTerm);
   }, [debouncedSearchTerm]);
@@ -45,7 +45,7 @@ function SeuComponente() {
 }
 
 const Home = () => {
-  const themeContext = React.useContext(ThemeContext);
+  const themeContext = useContext(ThemeContext);
   if (!themeContext) {
     console.error("Theme context is undefined");
     return null;
