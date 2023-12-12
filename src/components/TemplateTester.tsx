@@ -4,8 +4,7 @@ import { Stack, Box, Typography, IconButton, TypographyVariant, SxProps, Theme }
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 
 const TemplateTester = () => {
-  const themeContext = useContext(ThemeContext);
-  const { toggleMode, isDarkMode } = themeContext;
+  const { toggleMode, isDarkMode } = useContext(ThemeContext);
   const mode: 'dark' | 'light' = isDarkMode ? 'dark' : 'light';
   const colors = [
     {
