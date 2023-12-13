@@ -4,6 +4,7 @@ import useBoolean from '@/hooks/useBoolean';
 import useDebounce from '@/hooks/useDebounce';
 import TemplateTester from '@/components/TemplateTester';
 import { useTranslation } from 'react-i18next';
+import ActionButton from '@/components/ActionButton';
 
 function Teste() {
   const { value: isVisibleButton, setTrue: showButton, setFalse: hideButton, toggle: toggleButton } = useBoolean(false);
@@ -18,7 +19,13 @@ function Teste() {
     <div>
       <p>O botão está visível: {isVisibleButton.toString()}</p>
       {isVisibleButton && <button>Meu Botão</button>}
-      <button onClick={showButton}>Mostrar Botão</button>
+      <ActionButton
+        onClick={showButton}
+        text="botão"
+        buttonColor="apple"
+        textColor="white"
+        disabled={false}
+      />
       <button onClick={hideButton}>Ocultar Botão</button>
       <button onClick={toggleButton}>Alternar Visibilidade do Botão</button>
       <input
@@ -34,7 +41,7 @@ function Teste() {
 const Home = () => {
   const { t } = useTranslation();
   return (
-    <Container sx={{ py: 2, position: 'relative' }}>
+    <Container sx={{ py: 2, position: 'relative'}}>
       <Stack gap={1} my={2}>
         <Typography textAlign="center" variant="h2">
           {t("titulo")} 

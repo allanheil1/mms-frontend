@@ -1,4 +1,4 @@
-import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import { PaletteColorOptions, createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { PaletteMode } from '@mui/material';
 
 declare module '@mui/material/styles' {
@@ -6,7 +6,15 @@ declare module '@mui/material/styles' {
     interface TypeGradient {
         [key: string]: string;
     }
+    interface CustomPalette {
+        anger: PaletteColorOptions;
+        apple: PaletteColorOptions;
+        steelBlue: PaletteColorOptions;
+        violet: PaletteColorOptions;
+    }
 
+    interface Palette extends CustomPalette { }
+    interface PaletteOptions extends CustomPalette { }
     interface Palette {
         gradient: TypeGradient;
         text: TypeText2;
@@ -64,6 +72,14 @@ declare module '@mui/material/styles' {
         Body1SemiBold?: React.CSSProperties;
     }
 }
+declare module '@mui/material/Button' {
+    interface ButtonPropsColorOverrides {
+        anger: true;
+        apple: true;
+        steelBlue: true;
+        violet: true;
+    }
+}
 declare module '@mui/material/Typography' {
     interface TypographyPropsVariantOverrides {
         CTA1: true;
@@ -78,12 +94,15 @@ declare module '@mui/material/Typography' {
         Body1SemiBold: true;
     }
 }
-
 interface CustomThemeOptions {
     isDarkMode: boolean;
 }
+
 export const CustomTheme = ({ isDarkMode }: CustomThemeOptions) => {
     const mode: PaletteMode = isDarkMode ? 'dark' : 'light';
+    const { palette } = createTheme();
+    const { augmentColor } = palette;
+    const createColor = (mainColor: string) => augmentColor({ color: { main: mainColor } });
     const theme = responsiveFontSizes(
         createTheme({
             palette: {
@@ -94,6 +113,10 @@ export const CustomTheme = ({ isDarkMode }: CustomThemeOptions) => {
                 secondary: {
                     main: '#B664C6',
                 },
+                anger: createColor('#F40B27'),
+                apple: createColor('#5DBA40'),
+                steelBlue: createColor('#5C76B7'),
+                violet: createColor('#BC00A3'),
                 Ink: {
                     Darkest: '#000000',
                     Darker: '#222222',
