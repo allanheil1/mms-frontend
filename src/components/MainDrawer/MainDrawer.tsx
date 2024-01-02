@@ -1,28 +1,16 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import React from 'react';
+import {Box, Drawer, CssBaseline, Toolbar, List, Collapse, Typography, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
 import { Main, AppBar, DrawerHeader, drawerWidth, StyledChildrenWrapper } from './style';
-
+import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, ExpandLess, ExpandMore } from '@mui/icons-material';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
 interface MainDrawerProps {
     children: React.ReactNode;
 }
 
 export default function MainDrawer({ children }: MainDrawerProps) {
   const [open, setOpen] = React.useState(false);
+  const [devCategoryOpen, setDevCategoryOpen] = React.useState(false);
+  const [cadastrosCategoryOpen, setCadastrosCategoryOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -30,6 +18,14 @@ export default function MainDrawer({ children }: MainDrawerProps) {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const toggleDevCategory = () => {
+    setDevCategoryOpen(!devCategoryOpen);
+  };
+
+  const toggleCadastrosCategory = () => {
+    setCadastrosCategoryOpen(!cadastrosCategoryOpen);
   };
 
   return (
@@ -71,29 +67,75 @@ export default function MainDrawer({ children }: MainDrawerProps) {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
+        <ListItem key="Developer" disablePadding onClick={toggleDevCategory}>
+          <ListItemButton>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Desenvolvedor" />
+            {devCategoryOpen ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+        </ListItem>
+        <Collapse in={devCategoryOpen} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem key="Tools" disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary="Ferramentas" />
               </ListItemButton>
             </ListItem>
-          ))}
+            <ListItem key="Info" disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary="Informações" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Collapse>
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
+        <ListItem key="Cadastros" disablePadding onClick={toggleCadastrosCategory}>
+          <ListItemButton>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Cadastros" />
+            {cadastrosCategoryOpen ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+        </ListItem>
+        <Collapse in={cadastrosCategoryOpen} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem key="Tools" disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary="Perfil" />
               </ListItemButton>
             </ListItem>
-          ))}
+            <ListItem key="Info" disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary="Ativo" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem key="Info" disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary="Solicitações" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Collapse>
         </List>
       </Drawer>
       <Main open={open} sx={{padding: 0}}>

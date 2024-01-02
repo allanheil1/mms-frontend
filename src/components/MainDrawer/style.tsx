@@ -55,6 +55,5 @@ export const DrawerHeader = MUIstyled('div')(({ theme }) => ({
 
 export const StyledChildrenWrapper = styled.div`
   margin-top: 64px;
-  background-color: blue;
   padding: none;
 `;
