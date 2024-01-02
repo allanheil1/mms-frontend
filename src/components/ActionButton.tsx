@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 type ButtonColorType = keyof ButtonPropsColorOverrides | "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
 interface ActionButtonProps {
+    variant: 'contained' | 'outlined' | 'text';
     onClick: () => void;
     text: string;
     buttonColor: ButtonColorType,
@@ -12,14 +13,14 @@ interface ActionButtonProps {
     icon?: React.ComponentType;
 }
 
-function ActionButton({ onClick, text, buttonColor, textColor, disabled, icon: IconComponent }: ActionButtonProps): JSX.Element {
+function ActionButton({ variant, onClick, text, buttonColor, textColor, disabled, icon: IconComponent }: ActionButtonProps): JSX.Element {
     return (
         <Button
-            variant="contained"
+            variant={variant}
             onClick={onClick}
             color={buttonColor}
             disabled={disabled}
-            sx={{ height: "40px", color: textColor}}>
+            sx={{ height: "40px", color: textColor }}>
             <ButtonContent>
                 {IconComponent && <IconComponent />}
                 {text}
