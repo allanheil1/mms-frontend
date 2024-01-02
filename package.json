@@ -43,6 +43,8 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.0",
     "@mui/material": "^5.15.0",
+    "@types/axios": "^0.14.0",
+    "axios": "^1.6.3",
     "i18next": "^23.7.8",
     "i18next-browser-languagedetector": "^7.2.0",
     "i18next-xhr-backend": "^3.2.2",
