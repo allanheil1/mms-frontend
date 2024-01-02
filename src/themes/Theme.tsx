@@ -150,7 +150,7 @@ export const CustomTheme = ({ isDarkMode }: CustomThemeOptions) => {
                     Lightest: '#E5FFE5',
                 },
                 background: {
-                    default: mode === 'dark' ? '#000000' : '#FCFBFA',
+                    default: mode === 'dark' ? '#1a1a1a' : '#FCFBFA',
                     opposite: mode === 'dark' ? '#FCFBFA' : '#000000',
                     paper: mode === 'dark' ? '#131313' : '#FCFCFC',
                 },
