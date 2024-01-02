@@ -1,6 +1,4 @@
 {
-    "teste": {
-        "prop": "The text is in English"
-    },
-    "titulo": "Project MMS Okea - Front-End"
+    "titulo": "MMS Project - Front-End",
+    "Entrar": "Login"
 }

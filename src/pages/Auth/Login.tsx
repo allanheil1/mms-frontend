@@ -1,23 +1,36 @@
 import { useContext } from 'react';
-import { ThemeContext } from '@/contexts/Theme&SnackBar/ThemeContext';
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import { Typography, Box, Container, TextField, Button, Avatar } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { AxiosResponse } from 'axios';
+import { ReqLogin, LoginBody, LoginResponse } from '@/services/AuthRequests';
+import { ThemeContext } from '@/contexts/Theme&SnackBar/ThemeContext';
+import { Copyright } from '@/components/Copyright';
 
 export default function SignIn() {
 
   const themeContext = useContext(ThemeContext);
+  const { t } = useTranslation();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log(data);
+    const formData = new FormData(event.currentTarget);
+  
+    const body: LoginBody = {
+      Login: formData.get('login') as string,
+      Senha: formData.get('password') as string,
+      Idioma: 'pt-BR',
+    };
+  
+    ReqLogin(body)
+      .then((response: AxiosResponse | null) => {
+        console.log(response);
+        const responseData: LoginResponse = response?.data;
+        console.log('Token:', responseData.resultado.token);
+      })
+      .catch((error) => {
+        console.error('Erro na chamada da API de login:', error);
+      });
   };
 
   return (
@@ -63,7 +76,7 @@ export default function SignIn() {
               variant="contained"
               sx={{ height: 50, mt: 2, mb: 2, fontWeight: 'bold'}}
             >
-              ENTRAR
+              {t('Entrar')}
             </Button>
           </Box>
         </Box>
@@ -72,15 +85,3 @@ export default function SignIn() {
   );
 }
 
-export function Copyright(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://okea.com.br/">
-        ŌKEA
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
