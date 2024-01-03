@@ -64,7 +64,7 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
                         severity={snackbarSeverity}
                         message={snackbarMessage}
                         onClose={closeSnackbar}
-                        autoHideDuration={2000}
+                        autoHideDuration={3000}
                     />
                 )}
             </ThemeContext.Provider>

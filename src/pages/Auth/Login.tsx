@@ -1,39 +1,79 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Typography, Box, Container, TextField, Button, Avatar } from '@mui/material';
+import { Typography, Box, Container, TextField, Button, Avatar, InputAdornment, IconButton, CircularProgress } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { AxiosError, AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { ReqLogin, LoginBody, LoginResponse } from '@/services/AuthRequests';
 import { ThemeContext } from '@/contexts/Theme&SnackBar/ThemeContext';
 import { Copyright } from '@/components/Copyright';
+import { UserContext } from '@/contexts/User/UserContext';
 
 export default function SignIn() {
-  const theme = useContext(ThemeContext);
+  const { openSnackbar } = useContext(ThemeContext);
+  const { setUserInfo } = useContext(UserContext);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [loginSuccess, setLoginSuccess] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+    setIsLoading(true);
     const formData = new FormData(event.currentTarget);
-
-    const body: LoginBody = {
+    const LoginBody: LoginBody = {
       Login: formData.get('login') as string,
       Senha: formData.get('password') as string,
       Idioma: navigator.language || 'pt-BR',
     };
-  
-    ReqLogin(body)
+    ReqLogin(LoginBody)
       .then((response: AxiosResponse | null) => {
-        console.log(response);
         const responseData: LoginResponse = response?.data;
-        if(responseData.resultado?.token){
-          theme.openSnackbar('success', `${t('LoginSuccess')} - ${responseData.tempoResposta}ms`);
+        if(responseData?.sucesso){
+          openSnackbar('success', `${t('LoginSuccess')} - ${responseData.tempoResposta}ms`);
+          //armazena token no localStorage do navegador
+          localStorage.setItem('token', responseData.resultado.token)
+          //decodifica o token para pegar as informações escondidas nele
+          const [, payload] = responseData.resultado.token.split('.');
+          const decodedPayload = JSON.parse(atob(payload));
+          console.log(decodedPayload);
+          //atualiza o contexto de usuário com as informações provenientes do token
+          setUserInfo({
+            TenantId: decodedPayload.Tenant_Id,
+            UsuarioId: decodedPayload.Usuario_Id,
+            UsuarioEmail: decodedPayload.Usuario_Email,
+            UsuarioNome: decodedPayload.Usuario_Nome,
+            DataExpiracao: decodedPayload.Data_Expiracao,
+            IdiomaPadrao: decodedPayload.IdiomaPadrao
+          });
+          setLoginSuccess(true);
+          navigate('/');
         }else{
-          theme.openSnackbar('error', `${responseData.mensagem} - ${responseData.tempoResposta}ms`);
-        };
+          setLoginSuccess(false);
+          if(responseData){
+            openSnackbar('error', `${responseData?.mensagem} - ${responseData?.tempoResposta}ms`);
+          }else{
+            openSnackbar('error', 'Serviço inacessível');
+          }
+        }
       })
       .catch((error: AxiosError) => {
+        setLoginSuccess(false);
         console.error('Erro na chamada da API de login:', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
+  };
+
+  const handleClickShowPassword = (): void => {
+    setShowPassword((show: boolean) => !show);
+  };
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
   };
 
   return (
@@ -62,6 +102,8 @@ export default function SignIn() {
               name="login"
               autoComplete="login"
               autoFocus
+              error={!loginSuccess}
+              disabled={isLoading}
             />
             <TextField
               margin="normal"
@@ -69,17 +111,40 @@ export default function SignIn() {
               fullWidth
               name="password"
               label="Senha"
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               autoComplete="current-password"
+              error={!loginSuccess}
+              disabled={isLoading}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
+              disabled={isLoading}
               sx={{ height: 50, mt: 2, mb: 2, fontWeight: 'bold', color: 'white'}}
             >
-              {t('Entrar')}
+              {isLoading ?
+                <CircularProgress size={20} color={'primary'} />
+                :
+                <Typography>
+                  {t('Entrar')}
+                </Typography>
+              }
             </Button>
           </Box>
         </Box>
