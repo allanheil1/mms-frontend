@@ -21,7 +21,7 @@ export default function UserProvider({ children }: UserProviderProps) {
     
     function logout() {
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/');
         openSnackbar('success', 'Você foi deslogado')
     }
 

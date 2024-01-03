@@ -23,7 +23,7 @@ const Home = () => {
         {"Data de Expiração: " + userContext.userInfo.DataExpiracao} <br />
         {"Idioma: " + userContext.userInfo.IdiomaPadrao} <br />
       </Stack>
-      <Button onClick={() => themeContext.setIsDarkMode(!themeContext.isDarkMode)}>
+      <Button onClick={() => themeContext.toggleMode()}>
         MUDAR TEMA
       </Button> <br />
       <Button onClick={() => userContext.logout()}>

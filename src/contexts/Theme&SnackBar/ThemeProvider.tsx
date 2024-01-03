@@ -23,9 +23,7 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
             localStorage.setItem('mode', newMode ? 'dark' : 'light');
             return newMode;
         });
-        setSnackbarOpen(!snackbarOpen);
-        setSnackbarSeverity('warning');
-        setSnackbarMessage("Invertendo Tema!")
+        openSnackbar('warning', 'Invertendo Tema!')
     }
 
     function openSnackbar(severity: Severity, message: string) {
