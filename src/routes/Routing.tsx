@@ -7,8 +7,8 @@ import MainDrawer from '@/components/MainDrawer/MainDrawer';
 const Routing = () => {
   return (
     <Routes>
-      <Route path="*" element={<MainDrawer> <Home /> </MainDrawer>} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/home" element={<MainDrawer> <Home /> </MainDrawer>} />
+      <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
     </Routes>
   );

@@ -49,7 +49,7 @@ export default function SignIn() {
             IdiomaPadrao: decodedPayload.IdiomaPadrao
           });
           setLoginSuccess(true);
-          navigate('/');
+          navigate('/home');
         }else{
           setLoginSuccess(false);
           if(responseData){
