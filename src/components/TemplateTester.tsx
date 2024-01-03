@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ThemeContext } from '@/contexts/Theme&SnackBar/ThemeContext';
+import { ThemeContext } from '@/contexts/Theme/ThemeContext';
 import { Stack, Box, Typography, IconButton, TypographyVariant, SxProps, Theme } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 

@@ -1,5 +1,5 @@
 //import { useState, useEffect } from 'react';
-import { ThemeContext } from '@/contexts/Theme&SnackBar/ThemeContext';
+import { ThemeContext } from '@/contexts/Theme/ThemeContext';
 import { UserContext } from '@/contexts/User/UserContext';
 import { Typography, Stack, Container, Button } from '@mui/material';
 import { useContext } from 'react';
@@ -9,7 +9,7 @@ const Home = () => {
   const themeContext = useContext(ThemeContext);
   const userContext = useContext(UserContext);
   const { t } = useTranslation();
-  console.log(userContext.userInfo);
+  console.log('oi');
   return (
     <Container sx={{ py: 2, position: 'relative'}}>
       <Stack gap={2} my={2}>

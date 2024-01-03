@@ -1,7 +1,7 @@
 import { ReactNode, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoggedUserInfo, UserContext } from '@/contexts/User/UserContext';
-import { ThemeContext } from '../Theme&SnackBar/ThemeContext';
+import { ThemeContext } from '../Theme/ThemeContext';
 
 interface UserProviderProps {
     children: ReactNode;

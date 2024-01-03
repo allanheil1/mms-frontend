@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Typography, Box, Container, TextField, Button, Avatar, InputAdornment, IconButton, CircularProgress } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ReqLogin, LoginBody, LoginResponse } from '@/services/AuthRequests';
-import { ThemeContext } from '@/contexts/Theme&SnackBar/ThemeContext';
+import { ThemeContext } from '@/contexts/Theme/ThemeContext';
 import { Copyright } from '@/components/Copyright';
 import { UserContext } from '@/contexts/User/UserContext';
 
@@ -31,14 +31,13 @@ export default function SignIn() {
     ReqLogin(LoginBody)
       .then((response: AxiosResponse | null) => {
         const responseData: LoginResponse = response?.data;
-        if(responseData?.sucesso){
+        if (responseData?.sucesso) {
           openSnackbar('success', `${t('LoginSuccess')} - ${responseData.tempoResposta}ms`);
           //armazena token no localStorage do navegador
           localStorage.setItem('token', responseData.resultado.token)
           //decodifica o token para pegar as informações 'escondidas' nele
           const [, payload] = responseData.resultado.token.split('.');
           const decodedPayload = JSON.parse(atob(payload));
-          console.log(decodedPayload);
           //atualiza o contexto de usuário com as informações provenientes do token
           setUserInfo({
             TenantId: decodedPayload.Tenant_Id,
@@ -50,11 +49,11 @@ export default function SignIn() {
           });
           setLoginSuccess(true);
           navigate('/home');
-        }else{
+        } else {
           setLoginSuccess(false);
-          if(responseData){
+          if (responseData) {
             openSnackbar('error', `${responseData?.mensagem} - ${responseData?.tempoResposta}ms`);
-          }else{
+          } else {
             openSnackbar('error', 'Serviço inacessível');
           }
         }
@@ -76,7 +75,17 @@ export default function SignIn() {
     event.preventDefault();
   };
 
-  return (
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      navigate('/home');
+    }
+    console.log('Entrou no useEffect')
+  }, [localStorage.getItem('token')]);
+
+  if (localStorage.getItem('token')) {
+    return('')
+  } else {
+    return (
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
@@ -136,7 +145,7 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               disabled={isLoading}
-              sx={{ height: 50, mt: 2, mb: 2, fontWeight: 'bold', color: 'white'}}
+              sx={{ height: 50, mt: 2, mb: 2, fontWeight: 'bold', color: 'white' }}
             >
               {isLoading ?
                 <CircularProgress size={20} color={'primary'} />
@@ -150,6 +159,7 @@ export default function SignIn() {
         </Box>
         <Copyright />
       </Container>
-  );
+    );
+  }
 }
 
