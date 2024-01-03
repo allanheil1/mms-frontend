@@ -1,8 +1,8 @@
 import { Typography, Link } from '@mui/material';
 
-export function Copyright(props: any) {
+export function Copyright() {
     return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      <Typography variant="body2" color="text.secondary" align="center">
         {'Copyright © '}
         <Link color="inherit" href="https://okea.com.br/">
           ŌKEA
