@@ -1,8 +1,8 @@
-import { ReactNode, useState } from "react";
-import CustomSnackBar from '../../components/Snackbar';
-import { ThemeContext, Severity } from "./ThemeContext";
+import { ReactNode, useState } from 'react';
+import CustomSnackBar from '@/components/Snackbar';
+import { ThemeContext, Severity } from '@/contexts/Theme&SnackBar/ThemeContext';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material';
-import { CustomTheme } from "@/themes/Theme";
+import { CustomTheme } from '@/themes/Theme';
 
 interface ThemeProviderProps {
     children: ReactNode;

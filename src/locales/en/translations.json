@@ -1,4 +1,5 @@
 {
     "titulo": "MMS Project - Front-End",
-    "Entrar": "Login"
+    "Entrar": "Login",
+    "LoginSuccess": "Successful login"
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box, Drawer, CssBaseline, Toolbar, List, Collapse, Typography, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
-import { Main, AppBar, DrawerHeader, drawerWidth, StyledChildrenWrapper } from './style';
+import { Main, AppBar, DrawerHeader, drawerWidth, StyledChildrenWrapper } from '@/components/MainDrawer/style';
 import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon, ExpandLess, ExpandMore } from '@mui/icons-material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 interface MainDrawerProps {
