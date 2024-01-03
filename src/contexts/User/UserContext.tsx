@@ -11,8 +11,6 @@ export interface LoggedUserInfo{
 interface UserContextProps{
     userInfo: LoggedUserInfo,
     setUserInfo: Dispatch<SetStateAction<LoggedUserInfo>>;
-    token: string,
-    setToken: Dispatch<SetStateAction<string>>;
     logout: () => void;
 }
 
@@ -26,7 +24,5 @@ export const UserContext = createContext<UserContextProps>({
         IdiomaPadrao: ''
     },
     setUserInfo: () => {},
-    token: '',
-    setToken: () => {},
     logout: () => {}
 });

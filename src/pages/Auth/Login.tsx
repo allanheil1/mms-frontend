@@ -35,7 +35,7 @@ export default function SignIn() {
           openSnackbar('success', `${t('LoginSuccess')} - ${responseData.tempoResposta}ms`);
           //armazena token no localStorage do navegador
           localStorage.setItem('token', responseData.resultado.token)
-          //decodifica o token para pegar as informações escondidas nele
+          //decodifica o token para pegar as informações 'escondidas' nele
           const [, payload] = responseData.resultado.token.split('.');
           const decodedPayload = JSON.parse(atob(payload));
           console.log(decodedPayload);

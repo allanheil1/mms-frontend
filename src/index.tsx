@@ -8,9 +8,7 @@ import UserProvider from './contexts/User/UserProvider';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
       <ThemeProvider>
-        <UserProvider>
           <App />
-        </UserProvider>
       </ThemeProvider>
   </StrictMode>,
 );
