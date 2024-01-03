@@ -1,5 +1,7 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { LoggedUserInfo, UserContext } from '@/contexts/User/UserContext';
+import { ThemeContext } from '../Theme&SnackBar/ThemeContext';
 
 interface UserProviderProps {
     children: ReactNode;
@@ -14,11 +16,13 @@ export default function UserProvider({ children }: UserProviderProps) {
         DataExpiracao: '',
         IdiomaPadrao: ''
     });
-    const [token, setToken] = useState<string>('');
+    const { openSnackbar } = useContext(ThemeContext);
+    const navigate = useNavigate();
     
     function logout() {
-        setToken('');
         localStorage.removeItem('token');
+        navigate('/login');
+        openSnackbar('success', 'Você foi deslogado')
     }
 
     return (
@@ -26,8 +30,6 @@ export default function UserProvider({ children }: UserProviderProps) {
             value={{
                 userInfo,
                 setUserInfo,
-                token,
-                setToken,
                 logout
             }}
         >
