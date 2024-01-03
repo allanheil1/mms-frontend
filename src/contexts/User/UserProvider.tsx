@@ -1,5 +1,5 @@
-import { ReactNode, useState } from "react";
-import { UserContext } from "./UserContext";
+import { ReactNode, useState } from 'react';
+import { UserContext } from '@/contexts/User/UserContext';
 
 interface UserProviderProps {
     children: ReactNode;

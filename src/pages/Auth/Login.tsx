@@ -2,33 +2,36 @@ import { useContext } from 'react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Typography, Box, Container, TextField, Button, Avatar } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { ReqLogin, LoginBody, LoginResponse } from '@/services/AuthRequests';
 import { ThemeContext } from '@/contexts/Theme&SnackBar/ThemeContext';
 import { Copyright } from '@/components/Copyright';
 
 export default function SignIn() {
-
-  const themeContext = useContext(ThemeContext);
+  const theme = useContext(ThemeContext);
   const { t } = useTranslation();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-  
+
     const body: LoginBody = {
       Login: formData.get('login') as string,
       Senha: formData.get('password') as string,
-      Idioma: 'pt-BR',
+      Idioma: navigator.language || 'pt-BR',
     };
   
     ReqLogin(body)
       .then((response: AxiosResponse | null) => {
         console.log(response);
         const responseData: LoginResponse = response?.data;
-        console.log('Token:', responseData.resultado.token);
+        if(responseData.resultado?.token){
+          theme.openSnackbar('success', `${t('LoginSuccess')} - ${responseData.tempoResposta}ms`);
+        }else{
+          theme.openSnackbar('error', `${responseData.mensagem} - ${responseData.tempoResposta}ms`);
+        };
       })
-      .catch((error) => {
+      .catch((error: AxiosError) => {
         console.error('Erro na chamada da API de login:', error);
       });
   };
@@ -74,7 +77,7 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ height: 50, mt: 2, mb: 2, fontWeight: 'bold'}}
+              sx={{ height: 50, mt: 2, mb: 2, fontWeight: 'bold', color: 'white'}}
             >
               {t('Entrar')}
             </Button>

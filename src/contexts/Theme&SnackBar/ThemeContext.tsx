@@ -1,4 +1,4 @@
-import { Dispatch, createContext, SetStateAction } from "react";
+import { Dispatch, createContext, SetStateAction } from 'react';
 
 export type Severity = 'error' | 'warning' | 'info' | 'success';
 

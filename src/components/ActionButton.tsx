@@ -1,5 +1,5 @@
-import React from "react";
-import Button, { ButtonPropsColorOverrides } from "@mui/material/Button";
+import React from 'react';
+import Button, { ButtonPropsColorOverrides } from '@mui/material/Button';
 import styled from 'styled-components';
 
 type ButtonColorType = keyof ButtonPropsColorOverrides | "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
